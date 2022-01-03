@@ -1,4 +1,10 @@
 #include <X11/keysym.h>
+#include <stdlib.h>
+#include <mlx.h>
+
+# define WINDOW_WIDTH 600
+# define WINDOW_HEIGHT 300
+# define MLX_ERROR 1
 
 typedef struct s_data
 {
@@ -36,6 +42,8 @@ int	main(void)
 
 	/* Setup hooks */ 
 	mlx_loop_hook(data.mlx_ptr, &handle_no_event, &data);
+//loop_hook is triggered when there's no even processed. Useful to draw things
+//continuously on the screen. Without this, the lopp would have never ended.
 	mlx_key_hook(data.win_ptr, &handle_input, &data);
 
 	mlx_loop(data.mlx_ptr);
