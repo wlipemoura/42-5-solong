@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <X11/X.h>
 #include <X11/keysym.h>
 #include <mlx.h>
@@ -12,6 +11,7 @@
 
 #define RED_PIXEL 0xFF0000
 #define GREEN_PIXEL 0x00FF00
+#define WHITE_PIXEL 0xFFFFFF
 
 
 typedef struct s_data
@@ -57,8 +57,26 @@ int render_rect(t_data *data, t_rect rect)
 	return (0);
 }
 
+void	render_background(t_data *data, int color)
+{
+	int	i;
+	int	j;
+
+	if (data->win_ptr == NULL)
+		return ;
+	i = 0;
+	while (i < WINDOW_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_WIDTH)
+			mlx_pixel_put(data->mlx_ptr, data->win_ptr, j++, i, color);
+		++i;
+	}
+}
+
 int	render(t_data *data)
 {
+	render_background(data, WHITE_PIXEL);
 	render_rect(data, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100,
 			100, 100, GREEN_PIXEL});
 	render_rect(data, (t_rect){0, 0, 100, 100, RED_PIXEL});
