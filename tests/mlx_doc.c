@@ -1,3 +1,9 @@
+//BASIC LIBRARIRES------------------------------------------------------------
+#include <mlx.h> //
+#include <X11/keyxym.h> //to get the values of all the available keyboard symbols
+#include <X11/X.h> //to get different events (like key press)
+
+
 //BASIC FUNCTIONS-------------------------------------------------------------
 /**
  * @brief blablabla
@@ -74,8 +80,9 @@ int	mlx_loop ( void *mlx_ptr );
  * 
  * @param win_ptr is the identifier of the window in which 
  * we want this event happens.
- * @param funct_ptr is a function that exists in your own code and will be 
- * called by mlx_loop when the user presses a key on the keyboard.
+ * @param funct_ptr is a pointer to function that returns an int and that takes
+ * undefined parameters. It is a function that exists in your own code and 
+ * will be called by mlx_loop when the user presses a key on the keyboard.
  * @param param will be given as parameter to your function funct_ptr.
  * 
  * @return 
@@ -95,6 +102,9 @@ int	mlx_mouse_hook ( void *win_ptr, int (*funct_ptr)(), void *param );
 
 /**
  * @brief 
+ * Expose events are triggered when the content of a window gets lost 
+ * (for example, when the minilibx's window is covered partially or entirely by
+ * another and needs to be re-drawn).
  * 
  * @param 
  * @param 
@@ -121,8 +131,11 @@ int	mlx_loop_hook ( void *win_ptr, int (*funct_ptr)(), void *param );
  * @param 
  * @param 
  * @param 
- * @param 
- * @param 
+ * @param x_event is an integer corresponding to the name of the X event.
+ * You can find all the event names in the X11/X.h header.
+ * @param x_mask is a bit mask corresponding to the X event.It is used by the
+ * the minilibx to filter the events received by the window.
+ *  * You can find all the available masks in the X11/X.h header.
  * 
  * @return 
  */
