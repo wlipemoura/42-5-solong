@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 19:19:22 by wfelipe-          #+#    #+#             */
-/*   Updated: 2022/01/05 22:31:14 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/06 15:04:54 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ char	*breakline_found(char **line, char *auxiliar)
 	return (auxiliar);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int buffer_size)
 {
 	static char	*line = NULL;
 	char		*auxiliar;
 	int			end_file_identifier;
 
 	end_file_identifier = 1;
-	auxiliar = ft_calloc (BUFFER_SIZE + 1, sizeof(char));
-	end_file_identifier = read(fd, auxiliar, BUFFER_SIZE);
+	auxiliar = ft_calloc (buffer_size + 1, sizeof(char));
+	end_file_identifier = read(fd, auxiliar, buffer_size);
 	if (fd < 0 || (!*auxiliar && !line) || !auxiliar || read(fd, auxiliar, 0))
 		return (ft_strjoin_and_free(&auxiliar, &auxiliar, 1));
 	if (line && *auxiliar)

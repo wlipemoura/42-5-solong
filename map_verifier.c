@@ -6,14 +6,14 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:14:24 by coder             #+#    #+#             */
-/*   Updated: 2022/01/06 14:58:48 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/06 15:06:09 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "./42-1-libft/libft.h"
 
-1. read a file 
+/* 1. read a file 
 - Is it empty? return error
 - create a matrix to it;
 - Is the map closed/surrounded by walls (1)? If dont, return error
@@ -22,7 +22,7 @@
 - Do I have at least one starting position? If dont, return error
 - Is the map retangular? If dont, return error
 
-1. What is the necessary number of rows and columns of the matrix?
+1. What is the necessary number of rows and columns of the matrix? */
 
 typedef struct s_map
 {
@@ -102,7 +102,7 @@ int	matrix_height(char *map_arrayed)
 	return (n_rows);
 }
 
-//CREATE A MATRIX TO VERIFY FORMAT AND BORDERS
+//CREATE A MATRIX TO VERIFY BORDERS
 int	matrix_creator(char *map_arrayed, char **matrix, t_map map)//return height
 {
 	int		index;
@@ -118,14 +118,14 @@ int	matrix_creator(char *map_arrayed, char **matrix, t_map map)//return height
 
 
 //IS THE MAP ROUNDED BY WALLS?
-int	map_border_verifier(char **map_matrix, int map_height, int map_width)
+int	map_border_verifier(char **map_matrix, t_map map)
 {
 	int		i_row;
 	int		i_column;
 	
 	i_row = 0;
 	i_column = 0;
-	while (i_column < map_width)
+	while (i_column < map.width)
 	{
 		if (map_matrix[i_line][i_column] != WALL)
 			return (FALSE)
@@ -133,11 +133,11 @@ int	map_border_verifier(char **map_matrix, int map_height, int map_width)
 			i_column++;
 		if (i_line == 0)
 		{
-			i_line == map_height - 1;
+			i_line == map.height - 1;
 			i_column == 0;
 		}
 	}
-	while (i_line < map_height)
+	while (i_line < map.height)
 	{
 		if (map_matrix[i_line][i_column] != WALL)
 			return (FALSE)
@@ -145,7 +145,7 @@ int	map_border_verifier(char **map_matrix, int map_height, int map_width)
 			i_line++;
 		if (i_column == 0)
 		{
-			i_column == map_width - 1;
+			i_column == map.width - 1;
 			i_line == 0;
 		}
 	}
