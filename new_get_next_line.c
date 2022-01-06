@@ -1,6 +1,8 @@
-# include <unistd.h>
-# include <stdlib.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "get_next_line.h"
+#include <fcntl.h>
 
 char	*ft_strjoin_and_free(char **s1, char **s2, int return_flag)
 {
@@ -34,12 +36,12 @@ char	*new_get_next_line(int fd)
 	int			end_file_identifier;
 
 	end_file_identifier = 1;
-	auxiliar = ft_calloc (1 + 1, sizeof(char));
-	end_file_identifier = read(fd, auxiliar, 1);
-	if (fd < 0 || (!*auxiliar && !line) || !auxiliar || read(fd, auxiliar, 0))
-		return (ft_strjoin_and_free(&auxiliar, &auxiliar, 1));
 	while(end_file_identifier != 0)
 	{
+		auxiliar = ft_calloc (1 + 1, sizeof(char));
+		end_file_identifier = read(fd, auxiliar, 1);
+		if (fd < 0 || (!*auxiliar && !line) || !auxiliar || read(fd, auxiliar, 0))
+			return (ft_strjoin_and_free(&auxiliar, &auxiliar, 1));
 		if (line && *auxiliar)
 			line = ft_strjoin_and_free(&line, &auxiliar, 0);
 		else if (*auxiliar)
@@ -50,6 +52,6 @@ char	*new_get_next_line(int fd)
 
 int	main(void)
 {
-	
-	printf("O mapa em formato de array é: %s", new_get_next_line())
+	int fd = open("subject.ber", O_RDONLY);
+	printf("O mapa em formato de array é: %s\n", new_get_next_line(fd));
 }

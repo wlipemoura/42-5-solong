@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:14:24 by coder             #+#    #+#             */
-/*   Updated: 2022/01/05 22:35:40 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/06 14:58:48 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,53 +59,64 @@ int	elements_verifier(char *map_arrayed)
 		}
 	}
 }
-//CREATE A MATRIX TO VERIFY FORMAT AND BORDERS
-int	matrix_creator(char *map_arrayed, int map_fd, char **matrix)//return height
+//IS THE MAP RETANGULAR?
+int	map_format_verifier(char *map_arrayed)//return width
 {
-	t_map		map;
-	int			t_map.height;
-	int			t_map.width;
-	int			index;
-	int			buffer_size;
+	int	width_reference;
+	int	i_element;
+	int	i_row_begin;
 
+	i_element = 0;
+	while(*(map_arrayed + i_element) && *(map_arrayed + i_element) != '\n')
+		i_element++;
+	width_reference = i_element;
+	while (*(map_arrayed + i_element))
+	{
+		i_row_begin = ++i_element;
+		printf("i_row_begin = %d\n", i_row_begin);
+		while (*(map_arrayed + i_element) != '\n' && *(map_arrayed + i_element))
+			i_element++;
+		printf("i_row_end = %d\n", i_element);
+		if ((i_element - i_row_begin) != width_reference)
+			return (FALSE);
+	}
+	if ((i_element - i_row_begin) != width_reference)
+		return (FALSE);
+	else
+		return (width_reference);
+}
+
+int	matrix_height(char *map_arrayed)
+{
+	int	n_rows;
+	int	index;
+
+	n_rows = 1;
 	index = 0;
-	t_map.height = 1; //guarantee that the array has at least one character before enter in this function
-	buffer_size = ft_strlen(map_arrayed);
 	while (*(map_arrayed + index))
 	{
 		if (*(map_arrayed + index) == '\n')
-			t_map.height++;
-	}
-	index = 0;
-	matrix = (*char) ft_calloc(t_map.height, sizeof(char *));
-	while (t_map.height)
-	{
-		matrix[index][0] = get_next_line(map_fd, buffer_size);
-		t_map.height--;
+			n_rows++;
 		index++;
 	}
-	t_map.height = index;
-	return (t_map.height);
+	return (n_rows);
 }
-//IS THE MAP RETANGULAR?
-int	map_format_verifier(char **map_matrix, int map_height)//return width
-{
-	int	*n_char_per_row;
-	int	row_index;
-	int	width_reference;
 
-	row_index = 0;
-	row_index_conference = 0;
-	width_reference = ft_strlen(*map_matrix[row_index])
-	while (row_index != map_height)
+//CREATE A MATRIX TO VERIFY FORMAT AND BORDERS
+int	matrix_creator(char *map_arrayed, char **matrix, t_map map)//return height
+{
+	int		index;
+
+	index = 0; //guarantee that the array has at least one character before enter in this function
+	while (index < map.height)
 	{
-		if(width_reference != ft_strlen(*map_matrix[row_index]))
-			return (FALSE);
-		else
-			row_index++;
+		matrix[index][0] = get_next_line(map_fd, map.width + 1);//adapt get_next_line to get buffer_size
+		index++;
 	}
-	return (width_reference);
+	return (0);
 }
+
+
 //IS THE MAP ROUNDED BY WALLS?
 int	map_border_verifier(char **map_matrix, int map_height, int map_width)
 {
@@ -141,39 +152,20 @@ int	map_border_verifier(char **map_matrix, int map_height, int map_width)
 
 }
 
-char	*new_get_next_line(int fd)
-{
-	static char	*line = NULL;
-	char		*auxiliar;
-	int			end_file_identifier;
-
-	end_file_identifier = 1;
-	auxiliar = ft_calloc (1 + 1, sizeof(char));
-	end_file_identifier = read(fd, auxiliar, BUFFER_SIZE);
-	if (fd < 0 || (!*auxiliar && !line) || !auxiliar || read(fd, auxiliar, 0))
-		return (ft_strjoin_and_free(&auxiliar, &auxiliar, 1));
-	if (line && *auxiliar)
-		line = ft_strjoin_and_free(&line, &auxiliar, 0);
-	else if (*auxiliar)
-		line = ft_strjoin_and_free(&auxiliar, &line, 0);
-	else if (end_file_identifier == 0 && line)
-		return (ft_strjoin_and_free(&line, &auxiliar, 0));
-	return (get_next_line(fd));
-}
-
 int	map_verifier(int fd)
 {
 	static char	**matrix;
-	static char	*map_arrayed;
-	char		*auxiliar;
-	int			end_file_identifier;
+	char		*map_arrayed;
+	t_map		map;
+	int			i_row;
 
-	end_file_identifier = 1;
-	map_arrayed = get_next_line(fd);
-
-	end_file_identifier = read(fd, auxiliar, 1);
-
-	while (read())
-	
+	map_arrayed = new_get_next_line(fd);
+	if (!elements_verifier(map_arrayed))
+		return (ERROR);
+	else if (!(map_width=map_format_verifier(map_arrayed)))
+		return (ERROR);
+	map.height = map_height(map_arrayed);
+	matrix = (char *) ft_calloc(map.height, sizeof(char *));
+	matrix_creator(map_arrayed, matrix, (map){map.height, map.width});
 }
 
