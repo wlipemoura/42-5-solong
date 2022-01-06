@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wfelipe- < wfelipe-@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 19:19:19 by wfelipe-          #+#    #+#             */
-/*   Updated: 2021/09/27 12:44:56 by wfelipe-         ###   ########.fr       */
+/*   Updated: 2022/01/06 15:30:01 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
  * @return the line read including '\n'.
  * @return NULL if the file is empty or an error occurred.
  */
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int buffer_size);
 
 /**
  * @brief copies 'n' bytes from the 'src' memory to the 'dest' memory.

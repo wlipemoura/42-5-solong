@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 19:19:22 by wfelipe-          #+#    #+#             */
-/*   Updated: 2022/01/06 15:04:54 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/06 15:33:12 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ char	*get_next_line(int fd, int buffer_size)
 		return (breakline_found(&line, auxiliar));
 	else if (end_file_identifier == 0 && line)
 		return (ft_strjoin_and_free(&line, &auxiliar, 0));
-	return (get_next_line(fd));
+	return (get_next_line(fd, buffer_size));
 }
