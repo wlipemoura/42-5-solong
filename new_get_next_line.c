@@ -4,7 +4,7 @@
 #include "get_next_line.h"
 #include <fcntl.h>
 
-char	*ft_strjoin_and_free(char **s1, char **s2, int return_flag)
+char	*ft_strjoin_and_free_new(char **s1, char **s2, int return_flag)
 {
 	char	*newstring;
 	int		lens1;
@@ -41,17 +41,17 @@ char	*new_get_next_line(int fd)
 		auxiliar = ft_calloc (1 + 1, sizeof(char));
 		end_file_identifier = read(fd, auxiliar, 1);
 		if (fd < 0 || (!*auxiliar && !line) || !auxiliar || read(fd, auxiliar, 0))
-			return (ft_strjoin_and_free(&auxiliar, &auxiliar, 1));
+			return (ft_strjoin_and_free_new(&auxiliar, &auxiliar, 1));
 		if (line && *auxiliar)
-			line = ft_strjoin_and_free(&line, &auxiliar, 0);
+			line = ft_strjoin_and_free_new(&line, &auxiliar, 0);
 		else if (*auxiliar)
-			line = ft_strjoin_and_free(&auxiliar, &line, 0);
+			line = ft_strjoin_and_free_new(&auxiliar, &line, 0);
 	}
-	return (ft_strjoin_and_free(&line, &auxiliar, 0));
+	return (ft_strjoin_and_free_new(&line, &auxiliar, 0));
 }
-
+/* 
 int	main(void)
 {
 	int fd = open("subject.ber", O_RDONLY);
 	printf("O mapa em formato de array é: %s\n", new_get_next_line(fd));
-}
+} */
