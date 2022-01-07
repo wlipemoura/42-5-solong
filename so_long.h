@@ -8,7 +8,7 @@ mlx_put_image_to_window */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# include "42-1-libft/libft.h"
+# include "libraries/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 

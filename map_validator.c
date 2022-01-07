@@ -6,7 +6,7 @@ int	main(void)
 {
 	char *map_dir;
 	//Quando for testar com argc, comentar este bloco
-	map_dir = "subject.ber";
+	map_dir = "map_test.ber";//tratar quando o arquivo não existir!!
 	if (ft_strrncmp(map_dir, ".ber", 4) != 0)
 	{
 		printf("%s", INVALID_MAP);

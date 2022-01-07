@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/07 19:22:12 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/07 20:12:12 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ int	map_verifier(char *map_dir) //change name to map_verifier
 
 	map_fd = open(map_dir, O_RDONLY);
 	map_arrayed = ft_file_to_array(map_fd);
-	if (!map_arrayed)
-		return (FALSE);
-	if ( !(map.height = elements_verifier(map_arrayed))
+/* 	if (!map_arrayed)
+		return (FALSE); *///Confirm if I can put this condition to return INVALID_MAP below. It is to when a name that is not of a file is inputed (so, the map does not exist).
+	if (!map_arrayed ||!(map.height = elements_verifier(map_arrayed))
 		|| !(map.width = map_format_verifier(map_arrayed)))
 	{
 		printf("%s", INVALID_MAP);
