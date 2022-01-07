@@ -6,65 +6,50 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/06 22:14:12 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/07 19:02:29 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
 #include "so_long.h"
-
-//argc tem que ser dois (solong e mapa)
-
-/* 1. read a file 
-- Is it empty? return error
-- create a matrix to it;
-- Is the map closed/surrounded by walls (1)? If dont, return error
-- Do I have at least one exit (E)? If dont, return error
-- Do I have at least one collectible (C)? If dont, return error
-- Do I have at least one starting position? If dont, return error
-- Is the map retangular? If dont, return error
-*/
 
 int	elements_verifier(char *map_arrayed)//guarantee that it is a valid array (in new_gnl function)
 {
-	int	n_rows;
+	int	n_row;
 	int	index;
 
-	n_rows = 1;
+	n_row = 1;
 	index = 0;
 	while (*(map_arrayed + index))
 	{
 		if (*(map_arrayed + index) == '\n')
-			n_rows++;
+			n_row++;
 		index++;
 	}
 	if (!ft_strchr(map_arrayed, EXIT) || !ft_strchr(map_arrayed, COLLECTIBLE)
-			|| !ft_strchr(map_arrayed, WALL) || !ft_strchr(map_arrayed, START)
-			|| !ft_strchr(map_arrayed, PATH))
-			return (NULL);
+			|| !ft_strchr(map_arrayed, WALL) || !ft_strchr(map_arrayed, START))
+			return (FALSE);
 	while (*map_arrayed)
 	{
 		if ((*(map_arrayed) != COLLECTIBLE && *(map_arrayed) != EXIT
 			&& *(map_arrayed) != WALL && *(map_arrayed) != START
 			&& *(map_arrayed) != PATH && *(map_arrayed) != '\n'))
-				return (NULL);
+				return (FALSE);
 		else
 			map_arrayed++;
 	}
-	return (n_rows);
+	return (n_row);
 }
 
-int	matrix_creator(char *map_arrayed, char **matrix, t_map map)
+int	matrix_creator(char **matrix, t_map map, char *map_dir)
 {
 	int		index;
 	int		map_fd;
 
 	index = 0; //guarantee that the array has at least one character before enter in this function
-	map_fd = open("mini_map.ber", O_RDONLY);//this one is just for a test. I need to put argc, argv
+	map_fd = open(map_dir, O_RDONLY);//this one is just for a test. I need to put argc, argv
 	while (index < map.height)
 	{
-		matrix[index] = get_next_line(map_fd, map.width + 1);//adapt get_next_line to get buffer_size
+		matrix[index] = ft_get_next_line(map_fd, map.width + 1);//adapt get_next_line to get buffer_size
 		index++;
 	}
 	return (TRUE);
@@ -101,9 +86,11 @@ int	map_border_verifier(char **map_matrix, t_map map)
 
 	i_row = 0;
 	i_column = 0;
+	printf("n_row = %d, n_column = %d\n", map.height, map.width);
 	while (i_row < map.height)
 	{
 		//printf("i_row = %d, i_column = %d\n", i_row, i_column);
+		//printf("element =%c\n", map_matrix[i_row][i_column]);
 		if ((i_row == 0 || i_row == map.height - 1 || i_column == 0
 				|| i_column == map.width - 1)
 			&& map_matrix[i_row][i_column] != WALL)
@@ -118,28 +105,36 @@ int	map_border_verifier(char **map_matrix, t_map map)
 	return (TRUE);
 }
 
-int	main(void) //change name to map_verifier
+int	map_verifier(char *map_dir) //change name to map_verifier
 {
-	char		*map_arrayed;
-	static char	**matrix;
-	t_map		map;
-	int			map_fd;
+	char	*map_arrayed;
+	char	**matrix;
+	t_map	map;
+	int		map_fd;
 
-	map_fd = open("mini_map.ber", O_RDONLY);
+	map_fd = open(map_dir, O_RDONLY);
 	map_arrayed = ft_file_to_array(map_fd);
+	if (!map_arrayed)
+		return (FALSE);
 	if ( !(map.height = elements_verifier(map_arrayed))
 		|| !(map.width = map_format_verifier(map_arrayed)))
 	{
 		printf("%s", INVALID_MAP);
-		return (NULL);
+		free(map_arrayed);
+		return (FALSE);
 	}
-	matrix = (char **) ft_calloc(map.height, sizeof(char *));
-	matrix_creator(map_arrayed, matrix, (t_map){map.height, map.width});
-	if (map_border_verifier(matrix, map) == NULL)
+	free(map_arrayed);
+	map_arrayed = NULL;
+	//printf("Array = %s\n", map_arrayed);
+	matrix = (char **) ft_calloc(map.height, sizeof(char *));//why do I need this +1 to correct the errors?
+	matrix_creator(matrix, (t_map){map.width, map.height}, map_dir);
+	printf("Matrix[0][0] = %c\n", matrix[0][0]);
+	//printf("Matrix[0][1] = %c\n", matrix[2][1]);
+	if (map_border_verifier(matrix, map) == FALSE)
 	{
 		printf("%s", INVALID_MAP);
-		return (NULL);
+		free(matrix);
+		return (FALSE);
 	}
-	///printf("Matrix[0][0] = %c\n", matrix[0][0]);
-	//printf("Matrix[0][1] = %c\n", matrix[2][1]);
+	free(matrix);
 }
