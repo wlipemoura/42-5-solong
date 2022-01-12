@@ -1,74 +1,54 @@
-NAME = libft.a
+NAME = so_long
 
-INC = libft.h
+#INC = libft.h
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror -c -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -c -g3
 # compile with -g3 flag and run the follow to execute: valgrind ./a.out
+MLX_FLAGS = -lmlx -lXext -lX11
+
+SRC_PATH = ./sources
+
+MLX_PATH = ./libraries/mlx_linux
+
+LIBFT_PATH = ./libraries/libft
+
+LIBFT_FLAGS = -L $(LIBFT_PATH) -lft
 
 RM = rm -f
 
-SRC = \
-	ft_atoi.c \
-	ft_bzero.c \
-	ft_calloc.c \
-	ft_isalnum.c \
-	ft_isalpha.c \
-	ft_isascii.c \
-	ft_isdigit.c \
-	ft_isprint.c \
-	ft_memchr.c \
-	ft_memcmp.c \
-	ft_memcpy.c \
-	ft_memmove.c \
-	ft_memset.c \
-	ft_strchr.c \
-	ft_strdup.c \
-	ft_strlcat.c \
-	ft_strlcpy.c \
-	ft_strlen.c \
-	ft_strncmp.c \
-	ft_strnstr.c \
-	ft_strrchr.c \
-	ft_tolower.c \
-	ft_toupper.c \
-	ft_itoa.c \
-	ft_putchar_fd.c \
-	ft_putendl_fd.c \
-	ft_putnbr_fd.c \
-	ft_putstr_fd.c \
-	ft_split.c \
-	ft_strjoin.c \
-	ft_strmapi.c \
-	ft_strtrim.c \
-	ft_substr.c \
-	ft_strlen.c \
-	ft_strlcat.c \
-	ft_striteri.c \
-	ft_putunbr_fd.c \
-	ft_power.c \
-	ft_itoa_base.c \
-	ft_itoa_base_upper.c \
-	ft_get_next_line.c \
-	ft_file_to_array.c
+SRC = map_validator.c \
+		so_long.c
 
 OBJ = $(SRC:.c=.o)
 
 .c.o:
-	$(CC) $(FLAGS) $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) $< -o $(<:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	make all -C $(LIBFT_PATH)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)
+	make clean -C $(LIBFT_PATH)
 
 fclean: clean
 	$(RM) $(NAME)
+	make fclean -C $(LIBFT_PATH)
 
 re: fclean all
+
+git:
+	git status
+	git add .
+	git status
+	git commit -m "segmentation fault solved"
+
+push:
+	git push
 
 .PHONY: all clean fclean re

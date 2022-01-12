@@ -19,7 +19,9 @@ mlx_put_image_to_window */
 #define PATH '0'
 #define TRUE 1 //?
 #define FALSE 0 //?
+
 #define INVALID_MAP "Error\nPlease, input a valid map.\n"
+#define MAP_FILE "./assets/maps/subject_bigger.ber"
 
 typedef struct s_map
 {
@@ -27,6 +29,10 @@ typedef struct s_map
 	int	height;
 }	t_map;
 
-int	map_verifier(char *map_directory);
+typedef struct s_plr_pos
+{
+	int	x;
+	int	y;
+}	t_plr_pos;
 
 #endif
