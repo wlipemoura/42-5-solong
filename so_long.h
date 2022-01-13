@@ -11,6 +11,7 @@ mlx_put_image_to_window */
 # include "libraries/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include "mlx.h"
 
 #define COLLECTIBLE 'C'
 #define EXIT 'E'
@@ -22,11 +23,13 @@ mlx_put_image_to_window */
 
 #define INVALID_MAP "Error\nPlease, input a valid map.\n"
 #define MAP_FILE "./assets/maps/subject_bigger.ber"
+#define WINDOW_TITLE "so_long"
 
 typedef struct s_map
 {
-	int	width;
-	int	height;
+	int		width;
+	int		height;
+	char	**matrix;
 }	t_map;
 
 typedef struct s_plr_pos
@@ -34,5 +37,12 @@ typedef struct s_plr_pos
 	int	x;
 	int	y;
 }	t_plr_pos;
+
+typedef struct s_game
+{
+	void	*ptr_mlx;
+	void	*ptr_win;
+	t_map	map;
+}	t_game;
 
 #endif

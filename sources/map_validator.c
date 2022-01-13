@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/13 00:29:57 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/13 01:41:57 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	map_border_verifier(char **map_matrix, t_map map)
 	return (TRUE);
 }
 
-char	**map_validator(char *map_dir)
+char	**map_validator(char *map_dir)//(char *map_dir, t_map map)
 {
 	char	**matrix;
 	char	*map_arrayed;
