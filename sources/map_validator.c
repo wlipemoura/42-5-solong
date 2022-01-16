@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/16 15:57:03 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/16 16:39:07 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ char	**map_validator(char *map_dir, t_map *map)
 	}
 	free(map_arrayed);
 	map->matrix = (char **) ft_calloc(map->height, sizeof(char *));//why do I need this +1 to correct the errors?
-	matrix_creator(map->matrix, map, MAP_FILE);
+	matrix_creator(map->matrix, map, MAP_PATH);
 	if (map_border_verifier(map->matrix, map) == FALSE)
 	{
 		printf("%s", "INVALID_MAP");

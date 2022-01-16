@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:21:20 by coder             #+#    #+#             */
-/*   Updated: 2022/01/16 15:54:48 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/16 17:02:31 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 //char	**map_validator(char *map_dir, t_map *map);//(char *map_dir, t_map map)
 //int		map_on_screen(t_game *game, char **matrix);
+//clang -g ./sources/map_validator.c so_long.c movements.c ft_2d_array_print.c -L./libraries/libft/ -lft -lmlx -lXext -lX11
 
 int	main(void)
 {
@@ -24,13 +25,13 @@ int	main(void)
 	map.height = 0;
 	map.width = 0;
 	map.n_clct = 0;
-	if (argc < 2 || ft_strrncmp(MAP_FILE, ".ber", 4) != 0)
+	if (argc < 2 || ft_strrncmp(MAP_PATH, ".ber", 4) != 0)
 	{
 		printf("%s", INVALID_MAP);
 		return (FALSE);
 	}
 	else
-		map.matrix = map_validator(MAP_FILE, &map);//(t_game *game)
+		map.matrix = map_validator(MAP_PATH, &map);//(t_game *game)
 	ft_2d_array_print(map.matrix, map);
 	//map_on_screen(game, map.matrix);
 	//mlx_loop(game->ptr_mlx);
@@ -44,6 +45,7 @@ int	main(void)
 	{
 		move(&map, keysym, &run);
 	} */
+	open_window(&run, &map);
 	while (map.height > 0)
 	{
 		free(map.matrix[map.height - 1]);
@@ -61,13 +63,13 @@ int	main(void)
 	//t_map	map;
 
 	height = 6;
-	if (argc < 2 || ft_strrncmp(MAP_FILE, ".ber", 4) != 0)
+	if (argc < 2 || ft_strrncmp(MAP_PATH, ".ber", 4) != 0)
 	{
 		printf("%s", INVALID_MAP);
 		return (FALSE);
 	}
 	else
-		matrix = map_validator(MAP_FILE);//(t_game *game)
+		matrix = map_validator(MAP_PATH);//(t_game *game)
 	map_on_screen(game, matrix);
 	mlx_loop(game->ptr_mlx);
 	while (height > 0)
@@ -85,13 +87,13 @@ int	main(int argc, char **argv)
 	int		height;
 
 	height = 6;
-	if (argc < 2 || ft_strrncmp(MAP_FILE, ".ber", 4) != 0)
+	if (argc < 2 || ft_strrncmp(MAP_PATH, ".ber", 4) != 0)
 	{
 		printf("%s", INVALID_MAP);
 		return (FALSE);
 	}
 	else
-		matrix = map_validator(MAP_FILE);
+		matrix = map_validator(MAP_PATH);
 	while (height >= 0)
 	{
 		free(matrix[height - 1]);

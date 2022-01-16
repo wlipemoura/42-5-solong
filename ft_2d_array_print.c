@@ -24,4 +24,5 @@ int ft_2d_array_print(char **matrix, t_map map)//função apenas para testar
 		printf("\n");
 	}
 	printf("--------------------\n");
+	return (1);
 }

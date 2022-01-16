@@ -24,7 +24,7 @@ mlx_put_image_to_window */
 #define MLX_ERROR 0
 
 #define INVALID_MAP "Error\nPlease, input a valid map.\n"
-#define MAP_FILE "./assets/maps/subject_bigger.ber"
+#define MAP_PATH "./assets/maps/subject_bigger.ber"
 #define WINDOW_TITLE "so_long"
 
 typedef struct s_plr_pos
@@ -56,5 +56,6 @@ int ft_matrix_element_swap (char **matrix, int a_row, int a_column,
 int	move(t_map *map, int keysym, t_run_prog *run);
 char	**map_validator(char *map_dir, t_map *map);
 int ft_2d_array_print(char **matrix, t_map map);
+int	open_window(t_run_prog *run, t_map *map);
 
 #endif

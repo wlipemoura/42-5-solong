@@ -1,5 +1,6 @@
 #include "so_long.h"
 
+
 int	player_pos(t_map *map)
 {
 	map->player.x = 1;
@@ -52,11 +53,6 @@ int	exit_handler(t_map *map, t_run_prog *run)
 	return (FALSE);
 }
 
-/* int	enemy_handler()
-{
-
-} */
-/*
 int	move(t_map *map, int keysym, t_run_prog *run)
 {
 	int	x_cur_pos;
@@ -82,7 +78,7 @@ int	move(t_map *map, int keysym, t_run_prog *run)
 		{
 			ft_matrix_element_swap(map->matrix, y_cur_pos, x_cur_pos,
 									map->player.x, map->player.y);
-			ft_2d_array_print(map->matrix);
+			ft_2d_array_print(map->matrix, *map);
 		}
 	}
-}*/
+}
