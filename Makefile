@@ -6,6 +6,7 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Werror -c -g3
 # compile with -g3 flag and run the follow to execute: valgrind ./a.out
+# clang main.c -lX11 -lXext -lmlx
 MLX_FLAGS = -lmlx -lXext -lX11
 
 SRC_PATH = ./sources

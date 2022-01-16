@@ -11,7 +11,8 @@ mlx_put_image_to_window */
 # include "libraries/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
-# include "mlx.h"
+# include <mlx.h>
+# include <X11/keysym.h>//it has the keyboard key codes
 
 #define COLLECTIBLE 'C'
 #define EXIT 'E'
@@ -20,17 +21,11 @@ mlx_put_image_to_window */
 #define PATH '0'
 #define TRUE 1 //?
 #define FALSE 0 //?
+#define MLX_ERROR 0
 
 #define INVALID_MAP "Error\nPlease, input a valid map.\n"
-#define MAP_FILE "./assets/maps/subject.ber"
+#define MAP_FILE "./assets/maps/subject_bigger.ber"
 #define WINDOW_TITLE "so_long"
-
-typedef struct s_map
-{
-	int		width;
-	int		height;
-	char	**matrix;
-}	t_map;
 
 typedef struct s_plr_pos
 {
@@ -38,10 +33,24 @@ typedef struct s_plr_pos
 	int	y;
 }	t_plr_pos;
 
+typedef struct s_map
+{
+	int			width;
+	int			height;
+	char		**matrix;
+	t_plr_pos	player;
+}	t_map;
+
 typedef struct s_run_prog
 {
 	void	*ptr_mlx;
 	void	*ptr_win;
 }	t_run_prog;
+
+
+int	player_pos(t_map *map);
+int ft_matrix_element_swap (char **matrix, int a_row, int a_column,
+							int b_row, int b_column);
+int	move(t_map *map, int keysym);
 
 #endif
