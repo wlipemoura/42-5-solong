@@ -22,7 +22,7 @@ mlx_put_image_to_window */
 #define FALSE 0 //?
 
 #define INVALID_MAP "Error\nPlease, input a valid map.\n"
-#define MAP_FILE "./assets/maps/subject_bigger.ber"
+#define MAP_FILE "./assets/maps/subject.ber"
 #define WINDOW_TITLE "so_long"
 
 typedef struct s_map
@@ -38,11 +38,10 @@ typedef struct s_plr_pos
 	int	y;
 }	t_plr_pos;
 
-typedef struct s_game
+typedef struct s_run_prog
 {
 	void	*ptr_mlx;
 	void	*ptr_win;
-	t_map	map;
-}	t_game;
+}	t_run_prog;
 
 #endif

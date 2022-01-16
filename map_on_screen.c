@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int	map_on_screen(t_game *game, char **matrix)
+int	map_init(t_game *game, char **matrix)
 {
 	game->ptr_mlx = mlx_init();
 	game->ptr_win = mlx_new_window(game->ptr_win, game->map.width,
@@ -8,5 +8,11 @@ int	map_on_screen(t_game *game, char **matrix)
 	return (0);
 }
 
+int	map_on_screen(t_game *game, char **matrix)
+{
+	
+	mlx_xpm_file_to_image;//ponteiro que apontará para a imagem que está no diretório
+	mlx_put_image_to_window;//passar para a tela a imagem criada no ponteiro acima
+}
 mlx_xpm_file_to_image;//ponteiro que apontará para a imagem que está no diretório
 mlx_put_image_to_window;//passar para a tela a imagem criada no ponteiro acima
