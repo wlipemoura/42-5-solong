@@ -60,25 +60,28 @@ int	move(t_map *map, int keysym, t_run_prog *run)
 
 	x_cur_pos = map->player.x;
 	y_cur_pos = map->player.y;
-	while (1)
+
+	if (keysym == XK_Right || keysym == XK_d || keysym == XK_D)
+		map->player.x++;
+	if (keysym == XK_Left || keysym == XK_a || keysym == XK_A)
+		map->player.x--;
+	if (keysym == XK_Up || keysym == XK_w || keysym == XK_W)
+		map->player.y--;
+	if (keysym == XK_Down || keysym == XK_s || keysym == XK_S)
+		map->player.y++;
+	collectible_handler(map);
+	if (exit_handler(map, run) == TRUE && run->end_game == 1)
+		return (TRUE);
+	if (wall_handler(map) == FALSE
+		&& (exit_handler(map, run) == FALSE && run->end_game == 0))
 	{
-		if (keysym == XK_Right || keysym == XK_d || keysym == XK_D)
-			map->player.x++;
-		if (keysym == XK_Left || keysym == XK_a || keysym == XK_A)
-			map->player.x--;
-		if (keysym == XK_Up || keysym == XK_w || keysym == XK_W)
-			map->player.y--;
-		if (keysym == XK_Down || keysym == XK_s || keysym == XK_S)
-			map->player.y++;
-		collectible_handler(map);
-		if (exit_handler(map, run) == TRUE && run->end_game == 1)
-			return (TRUE);
-		if (wall_handler(map) == FALSE
-			&& (exit_handler(map, run) == FALSE && run->end_game == 0))
-		{
-			ft_matrix_element_swap(map->matrix, y_cur_pos, x_cur_pos,
-									map->player.x, map->player.y);
-			ft_2d_array_print(map->matrix, *map);
-		}
+		ft_matrix_element_swap(map->matrix, y_cur_pos, x_cur_pos,
+								map->player.x, map->player.y);
+		//ft_2d_array_print(map->matrix, *map);
 	}
+	ft_2d_array_print(map->matrix, *map);
+	mlx_loop(run->ptr_mlx);
+	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &move, &run);
+	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &run);
+	return (0);
 }

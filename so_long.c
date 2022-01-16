@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:21:20 by coder             #+#    #+#             */
-/*   Updated: 2022/01/16 17:02:31 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/16 17:58:06 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	main(void)
 	}
 	else
 		map.matrix = map_validator(MAP_PATH, &map);//(t_game *game)
-	ft_2d_array_print(map.matrix, map);
+	//ft_2d_array_print(map.matrix, map);
 	//map_on_screen(game, map.matrix);
 	//mlx_loop(game->ptr_mlx);
 	player_pos(&map);
 	//printf("matrix[1][1] = %c, matrix[1][2] = %c\n", map.matrix[1][1], map.matrix[1][2]);
-	ft_matrix_element_swap(map.matrix, 1, 1, 1, 2);
-	ft_2d_array_print(map.matrix, map);
+	//ft_matrix_element_swap(map.matrix, 1, 1, 1, 2);
+	//ft_2d_array_print(map.matrix, map);
 	//printf("matrix[1][1] = %c, matrix[1][2] = %c\n", map.matrix[1][1], map.matrix[1][2]);
 	//printf("player position X = %d, Y = %d\n", map.player.x, map.player.y);
 	/* while (1)

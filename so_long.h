@@ -13,6 +13,7 @@ mlx_put_image_to_window */
 # include <stdio.h>
 # include <mlx.h>
 # include <X11/keysym.h>//it has the keyboard key codes
+# include <X11/X.h>
 
 #define COLLECTIBLE 'C'
 #define EXIT 'E'
@@ -57,5 +58,6 @@ int	move(t_map *map, int keysym, t_run_prog *run);
 char	**map_validator(char *map_dir, t_map *map);
 int ft_2d_array_print(char **matrix, t_map map);
 int	open_window(t_run_prog *run, t_map *map);
+int	handle_keyrelease(int keysym, void *data);
 
 #endif
