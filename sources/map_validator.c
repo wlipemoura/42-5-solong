@@ -6,13 +6,13 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/14 01:49:47 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/16 15:57:03 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	elements_verifier(char *map_arrayed)//guarantee that it is a valid array (in new_gnl function)
+int	elements_verifier(char *map_arrayed, int *n_clct)//guarantee that it is a valid array (in new_gnl function)
 {
 	int	n_row;
 	int	index;
@@ -30,6 +30,8 @@ int	elements_verifier(char *map_arrayed)//guarantee that it is a valid array (in
 			return (FALSE);
 	while (*map_arrayed)
 	{
+		if(*(map_arrayed) == COLLECTIBLE)
+			n_clct++;
 		if ((*(map_arrayed) != COLLECTIBLE && *(map_arrayed) != EXIT
 			&& *(map_arrayed) != WALL && *(map_arrayed) != START
 			&& *(map_arrayed) != PATH && *(map_arrayed) != '\n'))
@@ -115,7 +117,7 @@ char	**map_validator(char *map_dir, t_map *map)
 	map_arrayed = ft_file_to_array(map_fd);
 	/* 	if (!map_arrayed)
 			return (FALSE); *///Confirm if I can put this condition to return INVALID_MAP below. It is to when a name that is not of a file is inputed (so, the map does not exist).
-	if (!map_arrayed || !(map->height = elements_verifier(map_arrayed))
+	if (!map_arrayed || !(map->height = elements_verifier(map_arrayed, &map->n_clct))
 		|| !(map->width = map_format_verifier(map_arrayed)))
 	{
 		printf("%s", INVALID_MAP);

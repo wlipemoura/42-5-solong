@@ -38,6 +38,7 @@ typedef struct s_map
 	int			width;
 	int			height;
 	char		**matrix;
+	int			n_clct;
 	t_plr_pos	player;
 }	t_map;
 
@@ -45,12 +46,15 @@ typedef struct s_run_prog
 {
 	void	*ptr_mlx;
 	void	*ptr_win;
+	int		end_game;
 }	t_run_prog;
 
 
 int	player_pos(t_map *map);
 int ft_matrix_element_swap (char **matrix, int a_row, int a_column,
 							int b_row, int b_column);
-int	move(t_map *map, int keysym);
+int	move(t_map *map, int keysym, t_run_prog *run);
+char	**map_validator(char *map_dir, t_map *map);
+int ft_2d_array_print(char **matrix, t_map map);
 
 #endif
