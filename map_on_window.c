@@ -1,11 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_on_window.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/22 14:54:12 by coder             #+#    #+#             */
+/*   Updated: 2022/01/22 16:41:13 by coder            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
+
+int	handle_no_event(void *data) //Não faz sentido para o Dudu
+{
+	/* This function needs to exist, but it is useless for the moment */
+	return (0);
+}
 
 int	close_window(t_run_prog *run)
 {
 	mlx_destroy_window(run->ptr_mlx, run->ptr_win);
 	mlx_destroy_display(run->ptr_mlx);
 	free(run->ptr_mlx);
-	//why do not I need to free win_ptr?
+	exit (0);//Avisar que o programa está sendo fechado e tudo ocorreu bem - verificar mais a fundo essa função
 	return (1);
 }
 
@@ -15,13 +33,6 @@ int	close_win_command(int keysym, t_run_prog *run)
 		|| keysym == XK_Q
 		|| keysym == XK_q)
 		close_window(run);
-	//mlx_hook(run->ptr_win, 33, 1L<<1, &close_window, &run);//entender melhor essa função - fechar clicando no botão do mouse
-	return (0);
-}
-
-int	handle_no_event(void *data)
-{
-	/* This function needs to exist, but it is useless for the moment */
 	return (0);
 }
 
@@ -31,25 +42,22 @@ int	handle_keyrelease(int keysym, void *data)
 	return (0);
 }
 
-int	open_window(t_run_prog *run, t_map *map)
+int	open_window(t_run_prog *run)
 {
 	run->ptr_mlx = mlx_init();
 	if (run->ptr_mlx == NULL)
 		return(MLX_ERROR);
-	run->ptr_win = mlx_new_window(run->ptr_mlx, map->width * 32,
-					map->height * 32, WINDOW_TITLE);
+	run->ptr_win = mlx_new_window(run->ptr_mlx, run->map.width * 32,
+					run->map.height * 32, WINDOW_TITLE);
 		if (run->ptr_win == NULL)//Why here I need to free and in ptr_mlx I dont?
 		{
 			free(run->ptr_win);
 			return (MLX_ERROR);
 		}
-	//mlx_loop_hook(data.mlx_ptr, &handle_no_event, &data);
-	mlx_loop_hook(run->ptr_mlx, &handle_no_event, &run);
-	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &move, &run);
-	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &run);
-	mlx_hook(run->ptr_win, KeyPress, KeyPressMask, &close_win_command, &run); /* ADDED */
+	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &move, run);
+	mlx_hook(run->ptr_win, KeyPress, KeyPressMask, &close_win_command, run); /* ADDED */
+	mlx_hook(run->ptr_win, 33, 1L<<1, &close_window, run);//entender melhor essa função - fechar clicando no botão do mouse
 	mlx_loop(run->ptr_mlx);
-	close_window(run);
 	return (0);
 }
 

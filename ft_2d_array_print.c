@@ -12,6 +12,7 @@ int ft_2d_array_print(char **matrix, t_map map)//função apenas para testar
 	i_matrix = 0;
 	i_array = 0;
 	len_array = map.width;
+	printf("\n");
 	while(i_matrix < map.height)
 	{
 		while (i_array < len_array)
@@ -23,6 +24,5 @@ int ft_2d_array_print(char **matrix, t_map map)//função apenas para testar
 		i_matrix++;
 		printf("\n");
 	}
-	printf("--------------------\n");
 	return (1);
 }

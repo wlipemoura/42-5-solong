@@ -9,11 +9,11 @@ mlx_put_image_to_window */
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "libraries/libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <mlx.h>
+# include <fcntl.h>//??
+# include <stdio.h>//??
+# include <mlx.h>//it has the mlx functions
 # include <X11/keysym.h>//it has the keyboard key codes
-# include <X11/X.h>
+# include <X11/X.h>//??
 
 #define COLLECTIBLE 'C'
 #define EXIT 'E'
@@ -25,8 +25,18 @@ mlx_put_image_to_window */
 #define MLX_ERROR 0
 
 #define INVALID_MAP "Error\nPlease, input a valid map.\n"
-#define MAP_PATH "./assets/maps/subject_bigger.ber"
+#define MAP_PATH "./assets/maps/subject.ber"
 #define WINDOW_TITLE "so_long"
+
+#define IMAGE_PATH "/assets/images/Terriermon.xpm"
+
+typedef struct s_sprite
+{
+	char	*path;
+	void	*img;
+	int		img_height;
+	int		img_width;
+}	t_sprite;
 
 typedef struct s_plr_pos
 {
@@ -45,19 +55,27 @@ typedef struct s_map
 
 typedef struct s_run_prog
 {
-	void	*ptr_mlx;
-	void	*ptr_win;
-	int		end_game;
+	void		*ptr_mlx;
+	void		*ptr_win;
+	int			end_game;
+	t_map		map;
+	t_sprite	sprite;
 }	t_run_prog;
 
 
 int	player_pos(t_map *map);
-int ft_matrix_element_swap (char **matrix, int a_row, int a_column,
-							int b_row, int b_column);
-int	move(t_map *map, int keysym, t_run_prog *run);
+int	move(int keysym, t_run_prog *run);
 char	**map_validator(char *map_dir, t_map *map);
 int ft_2d_array_print(char **matrix, t_map map);
-int	open_window(t_run_prog *run, t_map *map);
+int	open_window(t_run_prog *run);
 int	handle_keyrelease(int keysym, void *data);
+int	walk_right(t_run_prog *run);
+int	walk_left(t_run_prog *run);
+int	walk_up(t_run_prog *run);
+int	walk_down(t_run_prog *run);
+int	exit_handler(t_run_prog *run, int x, int y);
+int	wall_handler(char **matrix, int player_y, int player_x);
+int	collectible_handler(t_run_prog *run, int y, int x);
+int	image_workflow(t_run_prog *run);
 
 #endif

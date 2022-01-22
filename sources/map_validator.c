@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/16 16:39:07 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/22 19:41:17 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	elements_verifier(char *map_arrayed, int *n_clct)//guarantee that it is a va
 	while (*map_arrayed)
 	{
 		if(*(map_arrayed) == COLLECTIBLE)
-			n_clct++;
+			(*n_clct)++;
 		if ((*(map_arrayed) != COLLECTIBLE && *(map_arrayed) != EXIT
 			&& *(map_arrayed) != WALL && *(map_arrayed) != START
 			&& *(map_arrayed) != PATH && *(map_arrayed) != '\n'))

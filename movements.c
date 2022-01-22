@@ -1,6 +1,5 @@
 #include "so_long.h"
 
-
 int	player_pos(t_map *map)
 {
 	map->player.x = 1;
@@ -18,30 +17,30 @@ int	player_pos(t_map *map)
 	return (0);
 }
 
-int	wall_handler(t_map *map)
+int	wall_handler(char **matrix, int player_y, int player_x)
 {
-	if (map->matrix[map->player.y][map->player.x] == WALL)
+	if (matrix[player_y][player_x] == WALL)
 		return (TRUE);
 	else
 		return (FALSE);
 }
 
-int	collectible_handler(t_map *map)
+int	collectible_handler(t_run_prog *run, int y, int x)
 {
-	if (map->matrix[map->player.y][map->player.x] == COLLECTIBLE)
+	if (run->map.matrix[y][x] == COLLECTIBLE)
 	{
-		map->matrix[map->player.y][map->player.x] = PATH;
-		(map->n_clct)--;
-		return (map->n_clct);
+		(run->map.n_clct)--;
+		printf("Number of collectible left: %d\n", run->map.n_clct);
+		return (TRUE);
 	}
 	return (FALSE);
 }
 
-int	exit_handler(t_map *map, t_run_prog *run)
+int	exit_handler(t_run_prog *run, int x, int y)
 {
-	if (map->matrix[map->player.y][map->player.x] == EXIT)
+	if (run->map.matrix[y][x] == EXIT)
 	{
-		if (map->n_clct == 0)
+		if (run->map.n_clct == 0)
 		{
 			printf("YOU WON!");
 			run->end_game = 1;//END_GAME
@@ -53,35 +52,18 @@ int	exit_handler(t_map *map, t_run_prog *run)
 	return (FALSE);
 }
 
-int	move(t_map *map, int keysym, t_run_prog *run)
+int	move(int keysym, t_run_prog *run)
 {
-	int	x_cur_pos;
-	int	y_cur_pos;
-
-	x_cur_pos = map->player.x;
-	y_cur_pos = map->player.y;
-
+	
 	if (keysym == XK_Right || keysym == XK_d || keysym == XK_D)
-		map->player.x++;
+		walk_right(run);
 	if (keysym == XK_Left || keysym == XK_a || keysym == XK_A)
-		map->player.x--;
+		walk_left(run);
 	if (keysym == XK_Up || keysym == XK_w || keysym == XK_W)
-		map->player.y--;
+		walk_up(run);
 	if (keysym == XK_Down || keysym == XK_s || keysym == XK_S)
-		map->player.y++;
-	collectible_handler(map);
-	if (exit_handler(map, run) == TRUE && run->end_game == 1)
-		return (TRUE);
-	if (wall_handler(map) == FALSE
-		&& (exit_handler(map, run) == FALSE && run->end_game == 0))
-	{
-		ft_matrix_element_swap(map->matrix, y_cur_pos, x_cur_pos,
-								map->player.x, map->player.y);
-		//ft_2d_array_print(map->matrix, *map);
-	}
-	ft_2d_array_print(map->matrix, *map);
-	mlx_loop(run->ptr_mlx);
-	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &move, &run);
-	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &run);
+		walk_down(run);
+	ft_2d_array_print(run->map.matrix, run->map);
+	image_workflow(run);
 	return (0);
 }
