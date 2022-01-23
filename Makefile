@@ -7,6 +7,8 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -c -g3
 # compile with -g3 flag and run the follow to execute: valgrind ./a.out
 # clang main.c -lX11 -lXext -lmlx
+#clang -g ./sources/map_validator.c map_on_window.c ft_2d_array_print.c so_long.c movements.c -L./libraries/libft/ -lft -lmlx -lXext -lX11
+
 MLX_FLAGS = -lmlx -lXext -lX11
 
 SRC_PATH = ./sources

@@ -18,22 +18,34 @@ mlx_put_image_to_window */
 #define COLLECTIBLE 'C'
 #define EXIT 'E'
 #define WALL '1'
-#define START 'P'
+#define PLAYER 'P'
 #define PATH '0'
 #define TRUE 1 //?
 #define FALSE 0 //?
 #define MLX_ERROR 0
+#define TILE_SIZE 64
 
 #define INVALID_MAP "Error\nPlease, input a valid map.\n"
-#define MAP_PATH "./assets/maps/subject.ber"
 #define WINDOW_TITLE "so_long"
-
-#define IMAGE_PATH "/assets/images/Terriermon.xpm"
 
 typedef struct s_sprite
 {
-	char	*path;
-	void	*img;
+	char	*up_path;
+	void	*up_img;
+	char	*down_path;
+	void	*down_img;
+	char	*left_path;
+	void	*left_img;
+	char	*right_path;
+	void	*right_img;
+	char	*floor_path;
+	void	*floor_img;
+	char	*colct_path;
+	void	*colct_img;
+	char	*wall_path;
+	void	*wall_img;
+	char	*exit_path;
+	void	*exit_img;
 	int		img_height;
 	int		img_width;
 }	t_sprite;
@@ -48,8 +60,10 @@ typedef struct s_map
 {
 	int			width;
 	int			height;
+	char		*map_path;
 	char		**matrix;
 	int			n_clct;
+	int			n_steps;
 	t_plr_pos	player;
 }	t_map;
 
@@ -65,7 +79,7 @@ typedef struct s_run_prog
 
 int	player_pos(t_map *map);
 int	move(int keysym, t_run_prog *run);
-char	**map_validator(char *map_dir, t_map *map);
+char	**map_validator(t_map *map);
 int ft_2d_array_print(char **matrix, t_map map);
 int	open_window(t_run_prog *run);
 int	handle_keyrelease(int keysym, void *data);
@@ -77,5 +91,8 @@ int	exit_handler(t_run_prog *run, int x, int y);
 int	wall_handler(char **matrix, int player_y, int player_x);
 int	collectible_handler(t_run_prog *run, int y, int x);
 int	image_workflow(t_run_prog *run);
+int	close_window(t_run_prog *run);
+void	print_image(t_run_prog *run);
+void	count_steps(int *n_steps);
 
 #endif
