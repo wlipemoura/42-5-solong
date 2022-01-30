@@ -6,11 +6,11 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 05:04:56 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 07:30:42 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/30 15:17:08 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 void	load_image(t_run_prog *run)
 {

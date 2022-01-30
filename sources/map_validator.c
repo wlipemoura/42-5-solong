@@ -6,11 +6,11 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 04:58:49 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/30 15:17:16 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 //guarantee that it is a valid array (in new_gnl function)
 //map == map_arreyed here. number of lines was not favorable with that name.
 int	elements_verifier(char *map, int *n_clct)

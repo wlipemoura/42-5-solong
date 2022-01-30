@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 21:46:07 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 07:34:21 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/30 15:19:29 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# include "libraries/libft/libft.h"
+# include "../libraries/libft/libft.h"
 # include <fcntl.h>//??
 # include <stdio.h>//??
 # include <mlx.h>//it has the mlx functions
@@ -107,5 +107,6 @@ void	load_image(t_run_prog *run);
 void	count_steps(int *n_steps);
 void	free_matrix(t_run_prog *run);
 int		ft_matrix_creator(t_map *map);
+int		ft_matrix_element_swap(t_run_prog *run);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 07:05:28 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 07:32:11 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/30 15:17:21 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 int	player_pos(t_map *map)
 {
@@ -83,8 +83,7 @@ int	move(int keysym, t_run_prog *run)
 		&& (exit_handler(run, run->map.player.prev_y,
 				run->map.player.prev_x) == FALSE))
 	{
-		ft_matrix_element_swap(run->map.matrix, run->map.player.prev_y,
-			run->map.player.prev_x, run->map.player.y, run->map.player.x);
+		ft_matrix_element_swap(run);
 		count_steps(&run->map.n_steps);
 	}
 	if (run->end_game == 1)

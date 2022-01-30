@@ -1,28 +1,24 @@
 NAME = so_long
 
-CC = gcc
+CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -g3 -c
+CFLAGS = -Wall -Wextra -Werror -c -g3
 #clang -g ./sources/map_validator.c map_on_window.c ft_2d_array_print.c so_long.c movements.c -L./libraries/libft/ -lft -lmlx -lXext -lX11
 #clang -g3 ./sources/*.c so_long.c -L./libraries/libft/ -lft -lmlx -lXext -lX11
 
-MLX_FLAGS = -L. -lXext -lX11
+MLX_FLAGS = -lmlx -lXext -lX11
 
 INC = ./includes/
 
 MLX_PATH = ./libraries/mlx_linux
 
-MLX = $(MLX_PATH)/libmlx.a
-
 LIBFT_PATH = ./libraries/libft
-
-LIBFT = $(LIBFT_PATH)/libft.a
 
 OBJ_PATH = ./objects
 
 SRC_PATH = ./sources
 
-#LIBFT_FLAGS = -L $(LIBFT_PATH) -lft
+LIBFT_FLAGS = -L $(LIBFT_PATH) -lft
 
 RM = rm -f
 
@@ -35,33 +31,26 @@ SRC = ft_matrix_creator.c \
 	ft_matrix_element_swap.c\
 	so_long.c \
 
+SRC_PREFIX = $(addprefix $(SRC_PATH)/, $(SRC))
+
 #OBJ = $(SRC:.c=.o)
 OBJ = $(SRC:%.c=$(OBJ_PATH)/%.o)
 
-VPATH = sources
-
 #.c.o:
 #	$(CC) $(CFLAGS) $< -o $(<:.c=.o)
-$(OBJ_PATH)/%.o: %.c
-	$(CC) $(CFLAGS) $< -o $@ -I $(INC)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(MLX) $(LIBFT)
-
-#	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
-	$(CC) $(OBJ) $(MLX) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
-
-$(MLX):
-	make all -C $(MLX_PATH)
-
-$(LIBFT):
+$(NAME): $(OBJ)
 	make all -C $(LIBFT_PATH)
+#	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
+#	$(CC) $(CFLAGS) $(OBJ_PATH)/$(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 
 clean:
-	$(RM) $(OBJ_PATH)/$(OBJ)
+	$(RM) $(OBJ)
 	make clean -C $(LIBFT_PATH)
-	make clean -C $(MLX_PATH)
 
 fclean: clean
 	$(RM) $(NAME)

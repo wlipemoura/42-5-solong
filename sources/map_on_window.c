@@ -6,11 +6,11 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 14:54:12 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 07:30:19 by coder            ###   ########.fr       */
+/*   Updated: 2022/01/30 15:17:12 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 int	image_workflow(t_run_prog *run)
 {
