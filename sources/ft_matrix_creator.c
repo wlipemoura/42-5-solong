@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_matrix_creator.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 21:21:20 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 04:52:42 by coder            ###   ########.fr       */
+/*   Created: 2022/01/29 22:20:47 by coder             #+#    #+#             */
+/*   Updated: 2022/01/30 05:25:20 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
-int	main(int argc, char **argv)
+int	ft_matrix_creator(t_map *map)
 {
-	t_run_prog	run;
+	int		index;
+	int		map_fd;
 
-	ft_bzero(&run, sizeof(run));
-	run.map.map_path = argv[1];
-	if (argc < 2 || ft_strrncmp(argv[1], ".ber", 4) != 0)
+	index = 0;
+	map_fd = open(map->map_path, O_RDONLY);
+	while (index < map->height)
 	{
-		printf("%s", INVALID_MAP);
-		return (FALSE);
+		map->matrix[index] = ft_get_next_line(map_fd, map->width + 1);
+		index++;
 	}
-	else if (map_validator(&run) == FALSE)
-		return (FALSE);
-	player_pos(&run.map);
-	open_window(&run);
-	return (0);
+	return (TRUE);
 }

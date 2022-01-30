@@ -21,8 +21,13 @@ LIBFT_FLAGS = -L $(LIBFT_PATH) -lft
 
 RM = rm -f
 
-SRC = map_validator.c \
-		so_long.c
+SRC = so_long.c \
+	$(SRC_PATH)/ft_matrix_creator.c \
+	$(SRC_PATH)/images.c \
+	$(SRC_PATH)/map_on_window.c \
+	$(SRC_PATH)/map_validator.c \
+	$(SRC_PATH)/movements.c \
+	$(SRC_PATH)/walk.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -33,7 +38,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make all -C $(LIBFT_PATH)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)

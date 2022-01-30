@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movements.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/30 07:05:28 by coder             #+#    #+#             */
+/*   Updated: 2022/01/30 07:32:11 by coder            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
 int	player_pos(t_map *map)
 {
 	map->player.x = 1;
 	map->player.y = 1;
-	while(map->matrix[map->player.y][map->player.x] != 'P')
+	while (map->matrix[map->player.y][map->player.x] != 'P')
 	{
-		if(map->player.x == map->width - 1)
+		if (map->player.x == map->width - 1)
 		{
-			map->player.x  = 1;
+			map->player.x = 1;
 			map->player.y++;
 			continue ;
 		}
@@ -17,50 +29,64 @@ int	player_pos(t_map *map)
 	return (0);
 }
 
-int	wall_handler(char **matrix, int player_y, int player_x)
+int	wall_handler(t_run_prog *run, int y_cur_pos, int x_cur_pos)
 {
-	if (matrix[player_y][player_x] == WALL)
+	if (run->map.matrix[run->map.player.y][run->map.player.x] == WALL)
+	{
+		run->map.player.y = y_cur_pos;
+		run->map.player.x = x_cur_pos;
 		return (TRUE);
+	}
 	else
 		return (FALSE);
 }
 
-int	collectible_handler(t_run_prog *run, int y, int x)
+int	collectible_handler(t_map *map)
 {
-	if (run->map.matrix[y][x] == COLLECTIBLE)
+	if (map->matrix[map->player.y][map->player.x] == COLLECTIBLE)
 	{
-		(run->map.n_clct)--;
-		printf("Collectibles left: %d\n", run->map.n_clct);
-		return (TRUE);
+		map->matrix[map->player.y][map->player.x] = PATH;
+		(map->n_clct)--;
+		printf("Collectibles left: %d\n", map->n_clct);
+		return (map->n_clct);
 	}
 	return (FALSE);
 }
 
-int	exit_handler(t_run_prog *run, int y, int x)
+int	exit_handler(t_run_prog *run, int y_cur_pos, int x_cur_pos)
 {
-	if (run->map.matrix[y][x] == EXIT)
+	if (run->map.matrix[run->map.player.y][run->map.player.x] == EXIT)
 	{
 		if (run->map.n_clct == 0)
 		{
-			run->end_game = 1;//END_GAME
-			return (TRUE);//TRUE = end game
+			run->end_game = 1;
+			return (TRUE);
 		}
 		else
+		{
+			run->map.player.y = y_cur_pos;
+			run->map.player.x = x_cur_pos;
 			return (TRUE);
+		}
 	}
 	return (FALSE);
 }
 
 int	move(int keysym, t_run_prog *run)
 {
-	if (keysym == XK_Right || keysym == XK_d || keysym == XK_D)
-		walk_right(run);
-	if (keysym == XK_Left || keysym == XK_a || keysym == XK_A)
-		walk_left(run);
-	if (keysym == XK_Up || keysym == XK_w || keysym == XK_W)
-		walk_up(run);
-	if (keysym == XK_Down || keysym == XK_s || keysym == XK_S)
-		walk_down(run);
+	run->map.player.prev_x = run->map.player.x;
+	run->map.player.prev_y = run->map.player.y;
+	walk(keysym, run);
+	collectible_handler(&run->map);
+	if (wall_handler(run, run->map.player.prev_y,
+			run->map.player.prev_x) == FALSE
+		&& (exit_handler(run, run->map.player.prev_y,
+				run->map.player.prev_x) == FALSE))
+	{
+		ft_matrix_element_swap(run->map.matrix, run->map.player.prev_y,
+			run->map.player.prev_x, run->map.player.y, run->map.player.x);
+		count_steps(&run->map.n_steps);
+	}
 	if (run->end_game == 1)
 	{
 		count_steps(&run->map.n_steps);
