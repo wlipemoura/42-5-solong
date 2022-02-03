@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 21:46:07 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 15:19:29 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/03 03:39:52 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,8 @@ int		walk(int keysym, t_run_prog *run);
 int		exit_handler(t_run_prog *run, int y_cur_pos, int x_cur_pos);
 int		wall_handler(t_run_prog *run, int y_cur_pos, int x_cur_pos);
 int		collectible_handler(t_map *map);
-int		image_workflow(t_run_prog *run);
 int		close_window(t_run_prog *run);
-void	print_image(t_run_prog *run);
+int		print_image(t_run_prog *run);
 void	create_image(t_run_prog *run);
 void	load_image(t_run_prog *run);
 void	count_steps(int *n_steps);

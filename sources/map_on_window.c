@@ -6,19 +6,11 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 14:54:12 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 15:17:12 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/03 03:39:20 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	image_workflow(t_run_prog *run)
-{
-	load_image(run);
-	create_image(run);
-	print_image(run);
-	return (0);
-}
 
 void	free_matrix(t_run_prog *run)
 {
@@ -66,8 +58,10 @@ int	open_window(t_run_prog *run)
 		free(run->ptr_win);
 		return (MLX_ERROR);
 	}
-	image_workflow(run);
-	mlx_hook(run->ptr_win, 9, 1L << 21, &image_workflow, run);
+	load_image(run);
+	create_image(run);
+	mlx_hook(run->ptr_win, 9, 1L << 21, &print_image, run);
+	mlx_expose_hook(run->ptr_win, &print_image, run);
 	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &move, run);
 	mlx_hook(run->ptr_win, KeyPress, KeyPressMask, &close_win_command, run);
 	mlx_hook(run->ptr_win, 33, 1L << 1, &close_window, run);

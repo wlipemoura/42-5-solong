@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 05:04:56 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 15:17:08 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/03 02:55:49 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	char_handler(t_run_prog *run, int *i_array, int *i_matrix)
 			run->sprt.exit_img, *i_array * SIZE, *i_matrix * SIZE);
 }
 
-void	print_image(t_run_prog *run)
+int	print_image(t_run_prog *run)
 {
 	int	len_array;
 	int	i_matrix;
@@ -97,4 +97,5 @@ void	print_image(t_run_prog *run)
 		i_array = 0;
 		i_matrix++;
 	}
+	return (0);
 }
