@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 14:54:12 by coder             #+#    #+#             */
-/*   Updated: 2022/02/03 03:39:20 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/03 04:06:09 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	free_matrix(t_run_prog *run)
 	return ;
 }
 
-//Exit: Avisar que o programa está sendo fechado e tudo ocorreu bem - 
-//verificar mais a fundo essa função
 int	close_window(t_run_prog *run)
 {
 	mlx_destroy_window(run->ptr_mlx, run->ptr_win);
@@ -44,8 +42,6 @@ int	close_win_command(int keysym, t_run_prog *run)
 	return (0);
 }
 
-//Why here I need to free and in ptr_mlx I dont?
-//entender melhor a função de fechar clicando no botão do mouse
 int	open_window(t_run_prog *run)
 {
 	run->ptr_mlx = mlx_init();
@@ -60,11 +56,11 @@ int	open_window(t_run_prog *run)
 	}
 	load_image(run);
 	create_image(run);
-	mlx_hook(run->ptr_win, 9, 1L << 21, &print_image, run);
+	mlx_hook(run->ptr_win, FocusIn, FocusChangeMask, &print_image, run);
 	mlx_expose_hook(run->ptr_win, &print_image, run);
 	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &move, run);
 	mlx_hook(run->ptr_win, KeyPress, KeyPressMask, &close_win_command, run);
-	mlx_hook(run->ptr_win, 33, 1L << 1, &close_window, run);
+	mlx_hook(run->ptr_win, ClientMessage, KeyReleaseMask, &close_window, run);
 	mlx_loop(run->ptr_mlx);
 	return (0);
 }

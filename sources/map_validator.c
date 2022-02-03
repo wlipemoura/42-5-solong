@@ -6,12 +6,29 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 15:17:16 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/03 04:23:19 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-//guarantee that it is a valid array (in new_gnl function)
+
+char	**free_matrix_or_array(t_run_prog *run, char *map_arrayed, int flag)
+{
+	if (flag == 0)
+	{
+		printf("%s", INVALID_MAP);
+		free(map_arrayed);
+		return (FALSE);
+	}
+	else if (flag == 1)
+	{
+		printf("%s", INVALID_MAP);
+		free_matrix(run);
+		return (FALSE);
+	}
+	return (FALSE);
+}
+
 //map == map_arreyed here. number of lines was not favorable with that name.
 int	elements_verifier(char *map, int *n_clct)
 {
@@ -65,8 +82,6 @@ int	map_format_verifier(char *map_arrayed)
 	else
 		return (width_reference);
 }
-//guarantee that the array has at least one character before enter in 
-//this function
 
 int	map_border_verifier(t_map *map)
 {
@@ -98,22 +113,16 @@ char	**map_validator(t_run_prog *run)
 
 	map_fd = open(run->map.map_path, O_RDONLY);
 	map_arrayed = ft_file_to_array(map_fd);
+	if (!map_arrayed)
+		return (free_matrix_or_array(run, map_arrayed, 0));
 	run->map.height = elements_verifier(map_arrayed, &run->map.n_clct);
 	run->map.width = map_format_verifier(map_arrayed);
-	if (!map_arrayed || !run->map.height || !run->map.width)
-	{
-		printf("%s", INVALID_MAP);
-		free(map_arrayed);
-		return (FALSE);
-	}
+	if (!run->map.height || !run->map.width)
+		return (free_matrix_or_array(run, map_arrayed, 0));
 	free(map_arrayed);
 	run->map.matrix = (char **) ft_calloc(run->map.height, sizeof(char *));
 	ft_matrix_creator(&run->map);
 	if (map_border_verifier(&run->map) == FALSE)
-	{
-		printf("%s", INVALID_MAP);
-		free_matrix(run);
-		return (FALSE);
-	}
+		return (free_matrix_or_array(run, map_arrayed, 1));
 	return (run->map.matrix);
 }
