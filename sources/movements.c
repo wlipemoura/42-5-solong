@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 07:05:28 by coder             #+#    #+#             */
-/*   Updated: 2022/01/30 15:17:21 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/03 04:39:16 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,24 @@ int	move(int keysym, t_run_prog *run)
 {
 	run->map.player.prev_x = run->map.player.x;
 	run->map.player.prev_y = run->map.player.y;
-	walk(keysym, run);
-	collectible_handler(&run->map);
-	if (wall_handler(run, run->map.player.prev_y,
-			run->map.player.prev_x) == FALSE
-		&& (exit_handler(run, run->map.player.prev_y,
-				run->map.player.prev_x) == FALSE))
+	if (walk(keysym, run) == TRUE)
 	{
-		ft_matrix_element_swap(run);
-		count_steps(&run->map.n_steps);
+		collectible_handler(&run->map);
+		if (wall_handler(run, run->map.player.prev_y,
+				run->map.player.prev_x) == FALSE
+			&& (exit_handler(run, run->map.player.prev_y,
+					run->map.player.prev_x) == FALSE))
+		{
+			ft_matrix_element_swap(run);
+			count_steps(&run->map.n_steps);
+		}
+		if (run->end_game == 1)
+		{
+			count_steps(&run->map.n_steps);
+			printf("YOU WON!\n");
+			close_window(run);
+		}
+		print_image(run);
 	}
-	if (run->end_game == 1)
-	{
-		count_steps(&run->map.n_steps);
-		printf("YOU WON!\n");
-		close_window(run);
-	}
-	print_image(run);
 	return (0);
 }
