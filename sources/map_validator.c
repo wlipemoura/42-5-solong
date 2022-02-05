@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/02/03 04:23:19 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/05 04:25:50 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	elements_verifier(char *map, int *n_clct)
 		index++;
 	}
 	if (!ft_strchr(map, 'E') || !ft_strchr(map, 'C') || !ft_strchr(map, '1')
-		|| !ft_strchr(map, 'P'))
+		|| !ft_strchr(map, 'P') || ft_count_char(map, 'P') > 1)
 		return (FALSE);
 	while (*map)
 	{

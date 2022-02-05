@@ -6,11 +6,24 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 14:54:12 by coder             #+#    #+#             */
-/*   Updated: 2022/02/03 04:06:09 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/05 03:49:44 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	destroy_images(t_run_prog *run)
+{
+	mlx_destroy_image(run->ptr_mlx, run->sprt.colct_img);
+	mlx_destroy_image(run->ptr_mlx, run->sprt.exit_img);
+	mlx_destroy_image(run->ptr_mlx, run->sprt.floor_img);
+	mlx_destroy_image(run->ptr_mlx, run->sprt.left_img);
+	mlx_destroy_image(run->ptr_mlx, run->sprt.right_img);
+	mlx_destroy_image(run->ptr_mlx, run->sprt.up_img);
+	mlx_destroy_image(run->ptr_mlx, run->sprt.down_img);
+	mlx_destroy_image(run->ptr_mlx, run->sprt.wall_img);
+	return ;
+}
 
 void	free_matrix(t_run_prog *run)
 {
@@ -25,6 +38,7 @@ void	free_matrix(t_run_prog *run)
 
 int	close_window(t_run_prog *run)
 {
+	destroy_images(run);
 	mlx_destroy_window(run->ptr_mlx, run->ptr_win);
 	mlx_destroy_display(run->ptr_mlx);
 	free(run->ptr_mlx);

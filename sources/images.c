@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 05:04:56 by coder             #+#    #+#             */
-/*   Updated: 2022/02/03 02:55:49 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/05 03:32:01 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	player_direction(t_run_prog *run, int *i_array, int *i_matrix)
 	if (run->map.player.x > run->map.player.prev_x)
 		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,
 			run->sprt.right_img, *i_array * SIZE, *i_matrix * SIZE);
-	else if (run->map.player.x < run->map.player.prev_x)
+	if (run->map.player.x < run->map.player.prev_x)
 		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,
 			run->sprt.left_img, *i_array * SIZE, *i_matrix * SIZE);
 	else if (run->map.player.y > run->map.player.prev_y)
@@ -62,7 +62,11 @@ void	player_direction(t_run_prog *run, int *i_array, int *i_matrix)
 
 void	char_handler(t_run_prog *run, int *i_array, int *i_matrix)
 {
-	if (run->map.matrix[*i_matrix][*i_array] == 'P')
+	if (run->map.matrix[*i_matrix][*i_array] == 'P' &&
+	(run->map.n_steps == 0))
+		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,
+			run->sprt.right_img, *i_array * SIZE, *i_matrix * SIZE);
+	else if (run->map.matrix[*i_matrix][*i_array] == 'P')
 		player_direction(run, i_array, i_matrix);
 	else if (run->map.matrix[*i_matrix][*i_array] == 'C')
 		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,

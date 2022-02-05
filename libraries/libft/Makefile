@@ -53,6 +53,7 @@ SRC = \
 	ft_file_to_array.c \
 	ft_strrncmp.c \
 	ft_2d_array_print.c \
+	ft_count_char.c \
 
 OBJ = $(SRC:.c=.o)
 

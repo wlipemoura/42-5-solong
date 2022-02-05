@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 20:39:26 by wfelipe-          #+#    #+#             */
-/*   Updated: 2022/02/03 03:46:52 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/05 04:03:51 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -498,4 +498,14 @@ int		ft_strrncmp(const char *s1, const char *s2, size_t n);
  */
 int		ft_2d_array_print(char **matrix, int width, int height);
 
+/**
+ * @brief count how many times a character c appears in a string s.
+ *
+ * @param s is a pointer to the string in which the character will be searched
+ * @param c is the character searched
+  *
+ * @return how many times the character appears in the string of 0 if the
+ * string address does not exist.
+ */
+size_t	ft_count_char(const char *s, char c);
 #endif
