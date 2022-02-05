@@ -36,7 +36,7 @@ OBJ = $(SRC:%.c=$(OBJ_PATH)/%.o)
 VPATH = sources
 
 $(OBJ_PATH)/%.o: %.c
-	$(CC) $(CFLAGS) $< -o $@ -I $(INC)
+	$(CC) $(CFLAGS) $< -o $@ -I $(INC) -I $(MLX_PATH)
 
 all: $(NAME)
 
