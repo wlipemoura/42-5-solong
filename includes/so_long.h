@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 21:46:07 by coder             #+#    #+#             */
-/*   Updated: 2022/02/06 04:41:13 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/06 06:23:41 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ void	count_steps(int *n_steps);
 void	free_matrix(t_run_prog *run);
 int		ft_matrix_creator(t_map *map);
 int		ft_matrix_element_swap(t_run_prog *run);
+size_t	ft_count_2chars(const char *s, char c, char b);
 
 #endif
