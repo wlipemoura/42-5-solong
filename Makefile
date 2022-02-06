@@ -30,6 +30,7 @@ SRC = ft_matrix_creator.c \
 	walk.c \
 	ft_matrix_element_swap.c\
 	so_long.c \
+	ft_count_2chars.c \
 
 OBJ = $(SRC:%.c=$(OBJ_PATH)/%.o)
 
