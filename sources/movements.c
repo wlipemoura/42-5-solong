@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 07:05:28 by coder             #+#    #+#             */
-/*   Updated: 2022/02/05 03:41:43 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/06 04:14:42 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	player_pos(t_map *map)
 {
 	map->player.x = 1;
 	map->player.y = 1;
-	while (map->matrix[map->player.y][map->player.x] != 'P')
+	while (map->matrix[map->player.y][map->player.x] != PLAYER)
 	{
 		if (map->player.x == map->width - 1)
 		{
@@ -72,7 +72,7 @@ int	exit_handler(t_run_prog *run, int y_cur_pos, int x_cur_pos)
 	return (FALSE);
 }
 
-int	move(int keysym, t_run_prog *run)
+int	movement_handler(int keysym, t_run_prog *run)
 {
 	run->map.player.prev_x = run->map.player.x;
 	run->map.player.prev_y = run->map.player.y;

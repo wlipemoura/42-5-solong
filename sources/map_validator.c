@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 19:22:09 by coder             #+#    #+#             */
-/*   Updated: 2022/02/05 04:25:50 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/06 03:51:11 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	**free_matrix_or_array(t_run_prog *run, char *map_arrayed, int flag)
 }
 
 //map == map_arreyed here. number of lines was not favorable with that name.
+//it also gives the number of collectibles
 int	elements_verifier(char *map, int *n_clct)
 {
 	int	n_row;
@@ -51,7 +52,7 @@ int	elements_verifier(char *map, int *n_clct)
 		if (*map == 'C')
 			(*n_clct)++;
 		if ((*(map) != 'C' && *(map) != 'E' && *(map) != '1' && *(map) != 'P'
-				&& *(map) != PATH && *(map) != '\n'))
+				&& *(map) != '0' && *(map) != '\n'))
 			return (FALSE);
 		else
 			map++;

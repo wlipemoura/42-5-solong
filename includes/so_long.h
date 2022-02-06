@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 21:46:07 by coder             #+#    #+#             */
-/*   Updated: 2022/02/03 03:51:17 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/06 04:41:13 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_run_prog
 }	t_run_prog;
 
 int		player_pos(t_map *map);
-int		move(int keysym, t_run_prog *run);
+int		movement_handler(int keysym, t_run_prog *run);
 char	**map_validator(t_run_prog *run);
 int		open_window(t_run_prog *run);
 int		handle_keyrelease(int keysym, void *data);

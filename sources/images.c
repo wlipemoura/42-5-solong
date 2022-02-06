@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 05:04:56 by coder             #+#    #+#             */
-/*   Updated: 2022/02/05 03:32:01 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/06 04:08:35 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	load_image(t_run_prog *run)
 	run->sprt.wall_path = "./assets/images/wall_64.xpm";
 	run->sprt.colct_path = "./assets/images/collect_64.xpm";
 	run->sprt.exit_path = "./assets/images/hole_64.xpm";
+	return ;
 }
 
 void	create_image(t_run_prog *run)
@@ -42,6 +43,7 @@ void	create_image(t_run_prog *run)
 			run->sprt.colct_path, &run->sprt.img_width, &run->sprt.img_height);
 	run->sprt.exit_img = mlx_xpm_file_to_image(run->ptr_mlx,
 			run->sprt.exit_path, &run->sprt.img_width, &run->sprt.img_height);
+	return ;
 }
 
 void	player_direction(t_run_prog *run, int *i_array, int *i_matrix)
@@ -49,7 +51,7 @@ void	player_direction(t_run_prog *run, int *i_array, int *i_matrix)
 	if (run->map.player.x > run->map.player.prev_x)
 		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,
 			run->sprt.right_img, *i_array * SIZE, *i_matrix * SIZE);
-	if (run->map.player.x < run->map.player.prev_x)
+	else if (run->map.player.x < run->map.player.prev_x)
 		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,
 			run->sprt.left_img, *i_array * SIZE, *i_matrix * SIZE);
 	else if (run->map.player.y > run->map.player.prev_y)
@@ -58,6 +60,7 @@ void	player_direction(t_run_prog *run, int *i_array, int *i_matrix)
 	else if (run->map.player.y < run->map.player.prev_y)
 		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,
 			run->sprt.up_img, *i_array * SIZE, *i_matrix * SIZE);
+	return ;
 }
 
 void	char_handler(t_run_prog *run, int *i_array, int *i_matrix)
@@ -80,26 +83,27 @@ void	char_handler(t_run_prog *run, int *i_array, int *i_matrix)
 	else if (run->map.matrix[*i_matrix][*i_array] == 'E')
 		mlx_put_image_to_window(run->ptr_mlx, run->ptr_win,
 			run->sprt.exit_img, *i_array * SIZE, *i_matrix * SIZE);
+	return ;
 }
 
 int	print_image(t_run_prog *run)
 {
-	int	len_array;
-	int	i_matrix;
-	int	i_array;
+	int	len_line;
+	int	i_column;
+	int	i_line;
 
-	i_matrix = 0;
-	i_array = 0;
-	len_array = run->map.width;
-	while (i_matrix < run->map.height)
+	i_column = 0;
+	i_line = 0;
+	len_line = run->map.width;
+	while (i_column < run->map.height)
 	{
-		while (i_array < len_array)
+		while (i_line < len_line)
 		{
-			char_handler(run, &i_array, &i_matrix);
-			i_array++;
+			char_handler(run, &i_line, &i_column);
+			i_line++;
 		}
-		i_array = 0;
-		i_matrix++;
+		i_line = 0;
+		i_column++;
 	}
 	return (0);
 }

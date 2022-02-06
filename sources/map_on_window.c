@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 14:54:12 by coder             #+#    #+#             */
-/*   Updated: 2022/02/05 03:49:44 by coder            ###   ########.fr       */
+/*   Updated: 2022/02/06 04:01:11 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	open_window(t_run_prog *run)
 	create_image(run);
 	mlx_hook(run->ptr_win, FocusIn, FocusChangeMask, &print_image, run);
 	mlx_expose_hook(run->ptr_win, &print_image, run);
-	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &move, run);
+	mlx_hook(run->ptr_win, KeyRelease, KeyReleaseMask, &movement_handler, run);
 	mlx_hook(run->ptr_win, KeyPress, KeyPressMask, &close_win_command, run);
 	mlx_hook(run->ptr_win, ClientMessage, KeyReleaseMask, &close_window, run);
 	mlx_loop(run->ptr_mlx);
